@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Материалы к боту</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Rubik:wght@500;600&display=swap">
+<style>
+/* Раскладка: одна колонка 720px, два «экрана» в одном файле.
+   Главная: шапка, две крупные кнопки курсов, мини-инструкция.
+   Страница курса: кнопка «Назад», название, описание, список уроков. */
+:root {
+  --bg: #F3F5FA;
+  --surface: #FFFFFF;
+  --surface-2: #E9EDF7;
+  --ink: #15203B;
+  --ink-soft: #4A5572;
+  --line: #D9DFEE;
+  --accent: #2F4FD0;
+  --accent-ink: #FFFFFF;
+  --mark: #F58A3C;
+  --mark-ink: #15203B;
+  --font-display: 'Rubik', 'Segoe UI', Arial, sans-serif;
+  --font-body: 'Nunito Sans', 'Segoe UI', Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F1730; --surface: #18223F; --surface-2: #212D50; --ink: #EDF0F8; --ink-soft: #B3BCD6;
+    --line: #2C3960; --accent: #8EA2FF; --accent-ink: #0F1730; --mark: #F58A3C; --mark-ink: #15203B;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F1730; --surface: #18223F; --surface-2: #212D50; --ink: #EDF0F8; --ink-soft: #B3BCD6;
+  --line: #2C3960; --accent: #8EA2FF; --accent-ink: #0F1730; --mark: #F58A3C; --mark-ink: #15203B;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.55;
+  padding-block: 40px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+main { max-width: 720px; margin: 0 auto; }
+.view { display: flex; flex-direction: column; gap: 32px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.2; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+button { font: inherit; color: inherit; }
+.eyebrow { font-size: 14px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+header { display: flex; flex-direction: column; gap: 12px; }
+h1 { font-size: clamp(28px, 6vw, 40px); }
+.lead { color: var(--ink-soft); font-size: 18px; max-width: 60ch; }
+section { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+h2 { font-size: 24px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.card.featured { border-color: var(--accent); }
+.date { align-self: flex-start; background: var(--mark); color: var(--mark-ink); font-size: 15px; font-weight: 700; padding: 4px 12px; border-radius: 999px; }
+.meta { color: var(--ink-soft); font-size: 15px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; align-self: flex-start; min-height: 46px; padding: 10px 22px; border: 0; border-radius: 12px; font-weight: 700; font-size: 16px; text-decoration: none; background: var(--accent); color: var(--accent-ink); cursor: pointer; }
+.btn:hover { filter: brightness(1.08); }
+.btn.off { background: var(--surface-2); color: var(--ink-soft); cursor: default; }
+.courses { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.course { display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 18px; min-height: 150px; text-align: left; background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 16px; padding: 22px; cursor: pointer; min-width: 0; }
+.course:hover { filter: brightness(1.08); }
+.course .name { font-family: var(--font-display); font-weight: 600; font-size: 24px; line-height: 1.2; overflow-wrap: anywhere; }
+.course .count { font-size: 15px; font-weight: 600; opacity: .9; }
+.course .go { font-size: 15px; font-weight: 700; }
+.back { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 16px 8px 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; font-weight: 700; font-size: 16px; cursor: pointer; }
+.back:hover { border-color: var(--accent); }
+button:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+ol.lessons { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.lesson { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; border-top: 1px solid var(--line); }
+.lesson:first-child { border-top: 0; }
+.lesson span.t { min-width: 0; overflow-wrap: anywhere; }
+.lesson a, .lesson .soon { flex: none; font-size: 15px; font-weight: 700; }
+.lesson a { color: var(--accent); }
+.lesson .soon { color: var(--ink-soft); font-weight: 600; }
+ol.steps, ul.points { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 10px; }
+ol.steps li::marker { color: var(--accent); font-weight: 700; }
+ul.points li::marker { color: var(--accent); }
+footer { color: var(--ink-soft); font-size: 15px; }
+@media (max-width: 520px) { .courses { grid-template-columns: 1fr; } .card { padding: 18px; } .course { min-height: 0; } }
+</style>
+</head>
+<body>
+<main id="app"></main>
+
+<script>
+/* ====== ЗДЕСЬ ВПИСЫВАЮТСЯ ТЕКСТЫ И ССЫЛКИ ======
+   url: "" означает «ссылка пока не добавлена»: вместо кнопки будет серая метка «Скоро».
+   Всё, что в квадратных скобках, это заглушки: замените на настоящий текст.
+   id курса (projects, gui) задаёт адрес страницы курса: ссылка на страницу курса = ссылка на сайт + #projects. */
+const PAGE = {
+  heading: "Дополнительные материалы к боту",
+  lead: "Подарок к боту: два видеокурса по Python от EasyCode. Они не входят в подготовку к олимпиаде: это дополнительный материал для тех, кто хочет познакомиться с программированием шире. Смотреть можно в любое время и в своём темпе. Курсы дают базовую часть темы: это первое знакомство, а не полное изучение.",
+  howto: [
+    "Выберите курс на этой странице.",
+    "На странице курса прочитайте описание и посмотрите, что входит в курс.",
+    "Нажмите «Смотреть» рядом с нужным уроком: запись откроется в новой вкладке.",
+    "Чтобы вернуться к списку курсов, нажмите «← Назад»."
+  ],
+  courses: [
+    {
+      id: "projects",
+      name: "Python: проекты и базы данных",
+      description: "Проектная работа, базы данных, SQL-запросы и разделение кода на модули.",
+      about: "Практический курс из 10 уроков. Ученик дорабатывает и завершает проект, знакомится с базами данных и SQL-запросами, подключает базу данных к проекту и учится делить код на модули. Во второй половине курса он создаёт новый проект и доводит его до готового результата. Это базовая часть темы: за 10 уроков ученик осваивает основы, а не изучает базы данных полностью.",
+      outcomes: [
+        "Понимает, что такое база данных, и пишет базовые SQL-запросы.",
+        "Подключает базу данных к своему проекту.",
+        "Делит код на модули, чтобы проект было проще развивать.",
+        "Проходит путь проекта от начала до готовой версии."
+      ],
+      audience: "Темы в уроках объясняются с нуля, поэтому курс подойдёт и тем, кто ещё не работал с базами данных и не делил код на модули. Он для тех, кто хочет научиться работать с данными и собирать более крупные проекты.",
+      lessons: [
+        { title: "Урок 1. Работа над проектом", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%A3%D1%80%D0%BE%D0%BA%20%E2%84%961.mp4" },
+        { title: "Урок 2. Работа над проектом. Завершение", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%A3%D1%80%D0%BE%D0%BA%20%E2%84%962.mp4" },
+        { title: "Урок 3. Введение в базы данных", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%A3%D1%80%D0%BE%D0%BA%20%E2%84%963.mp4" },
+        { title: "Урок 4. Новые SQL-запросы", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%A3%D1%80%D0%BE%D0%BA%20%E2%84%964.mp4" },
+        { title: "Урок 5. Внедрение БД в проект второго модуля", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%A3%D1%80%D0%BE%D0%BA%20%E2%84%965.mp4" },
+        { title: "Урок 6. Разделение кода на модули", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%A3%D1%80%D0%BE%D0%BA%20%E2%84%966.mp4" },
+        { title: "Урок 7. Начало работы над проектом", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%A3%D1%80%D0%BE%D0%BA%20%E2%84%967.mp4" },
+        { title: "Урок 8. Работа над проектом II", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%A3%D1%80%D0%BE%D0%BA%20%E2%84%968.mp4" },
+        { title: "Урок 9. Работа над проектом III", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%A3%D1%80%D0%BE%D0%BA%20%E2%84%969.mp4" },
+        { title: "Урок 10. Работа над проектом: завершающая часть", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%A3%D1%80%D0%BE%D0%BA%20%E2%84%9610.mp4" }
+      ]
+    },
+    {
+      id: "gui",
+      name: "Python: оконные приложения",
+      description: "Приложения с окнами на Python: от первой кнопки до выпускного проекта.",
+      about: "Курс из 16 уроков о создании приложений с графическим окном. Сначала ученик осваивает основы оконных приложений: виджеты, обработку событий и позиционирование элементов, и делает калькулятор, календарь и ToDo-список. Затем переходит к библиотеке PyQt: сигналы и слоты, позиционирование, и собирает графический редактор, конвертер и приложение «Погода». В конце курса делает выпускной проект и представляет его. Это базовая часть темы: за 16 уроков ученик осваивает основы, а не изучает разработку интерфейсов полностью.",
+      outcomes: [
+        "Создаёт приложения с окном, кнопками и текстовыми элементами.",
+        "Обрабатывает действия пользователя: нажатия кнопок, сигналы и слоты в PyQt.",
+        "Собирает готовые приложения: калькулятор, календарь, ToDo-список, графический редактор, конвертер и «Погода».",
+        "Делает выпускной проект и представляет его."
+      ],
+      audience: "Темы в уроках объясняются с нуля, поэтому курс подойдёт и тем, кто ещё не создавал приложения с окнами. Он для тех, кто хочет делать программы с графическим интерфейсом.",
+      lessons: [
+        { title: "Урок 1. Знакомство с оконными приложениями", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%B3%D1%83%D0%B8%201.mp4" },
+        { title: "Урок 2. Виджеты. Текстовые элементы", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%B3%D1%83%D0%B8%202.mp4" },
+        { title: "Урок 3. Обработка событий. Кнопки", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%B3%D1%83%D0%B8%203.mp4" },
+        { title: "Урок 4. Позиционирование", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%B3%D1%83%D0%B8%204.mp4" },
+        { title: "Урок 5. Разработка приложения «Калькулятор»", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%B3%D1%83%D0%B8%205.mp4" },
+        { title: "Урок 6. Разработка приложения «Календарь»", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%B3%D1%83%D0%B8%206.mp4" },
+        { title: "Урок 7. Разработка приложения «ToDo-список»", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%B3%D1%83%D0%B8%207.mp4" },
+        { title: "Урок 8. Разработка приложения «ToDo-список»: часть вторая", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%B3%D1%83%D0%B8%208.mp4" },
+        { title: "Урок 9. Основы работы с виджетами в PyQt", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%B3%D1%83%D0%B8%209.mp4" },
+        { title: "Урок 10. Сигналы и слоты", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%B3%D1%83%D0%B8%2010.mp4" },
+        { title: "Урок 11. Позиционирование в PyQt", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%B3%D1%83%D0%B8%2011.mp4" },
+        { title: "Урок 12. Разработка приложения «Графический редактор»", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%B3%D1%83%D0%B8%2012.mp4" },
+        { title: "Урок 13. Разработка приложения «Конвертер»", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%B3%D1%83%D0%B8%2013.mp4" },
+        { title: "Урок 14. Разработка приложения «Погода»", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%B3%D1%83%D0%B8%2014.mp4" },
+        { title: "Урок 15. Начало создания выпускного проекта", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%B3%D1%83%D0%B8%2015.mp4" },
+        { title: "Урок 16. Презентация работ", url: "https://storage.yandexcloud.net/platfor-easy-code-bucket/async/%D0%B3%D1%83%D0%B8%2016.mp4" }
+      ]
+    }
+  ]
+};
+
+/* ====== Дальше отрисовка и переходы, их менять не нужно ====== */
+function el(tag, attrs, children) {
+  var node = document.createElement(tag);
+  for (var k in (attrs || {})) {
+    if (k === "text") node.textContent = attrs[k];
+    else node.setAttribute(k, attrs[k]);
+  }
+  (children || []).forEach(function (c) { if (c) node.appendChild(c); });
+  return node;
+}
+function link(url, label, cls) {
+  if (url) return el("a", { href: url, target: "_blank", rel: "noopener", "class": cls || "", text: label });
+  return el("span", { "class": (cls ? cls + " off" : "soon"), text: "Скоро" });
+}
+function lessonWord(n) {
+  var m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return n + " урок";
+  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return n + " урока";
+  return n + " уроков";
+}
+
+var views = {};   // id экрана -> элемент; "home" это главная
+
+function show(id, fromHistory) {
+  Object.keys(views).forEach(function (k) { views[k].hidden = (k !== id); });
+  window.scrollTo(0, 0);
+  if (!fromHistory) { try { location.hash = (id === "home") ? "" : id; } catch (e) {} }
+}
+window.addEventListener("hashchange", function () {      // кнопка «Назад» браузера и телефона
+  var h = (location.hash || "").replace("#", "");
+  show(views[h] ? h : "home", true);
+});
+
+function buildHome() {
+  var courseButtons = PAGE.courses.map(function (c) {
+    var b = el("button", { type: "button", "class": "course" }, [
+      el("span", { "class": "name", text: c.name }),
+      el("span", { "class": "count", text: lessonWord(c.lessons.length) }),
+      el("span", { "class": "go", text: "Открыть курс →" })
+    ]);
+    b.addEventListener("click", function () { show(c.id); });
+    return b;
+  });
+  return el("div", { "class": "view" }, [
+    el("header", {}, [
+      el("p", { "class": "eyebrow", text: "EasyCode · неПервый код" }),
+      el("h1", { text: PAGE.heading }),
+      el("p", { "class": "lead", text: PAGE.lead })
+    ]),
+    el("section", {}, [
+      el("h2", { text: "Курсы" }),
+      el("div", { "class": "courses" }, courseButtons)
+    ]),
+    el("section", {}, [
+      el("h2", { text: "Как пользоваться" }),
+      el("div", { "class": "card" }, [
+        el("ol", { "class": "steps" }, PAGE.howto.map(function (s) { return el("li", { text: s }); }))
+      ])
+    ])
+  ]);
+}
+
+function buildCourse(c) {
+  var back = el("button", { type: "button", "class": "back" }, [
+    el("span", { text: "←" }), el("span", { text: "Назад" })
+  ]);
+  back.addEventListener("click", function () { show("home"); });
+  var list = el("ol", { "class": "lessons" }, c.lessons.map(function (l) {
+    return el("li", { "class": "lesson" }, [
+      el("span", { "class": "t", text: l.title }),
+      link(l.url, "Смотреть")
+    ]);
+  }));
+  return el("div", { "class": "view" }, [
+    back,
+    el("header", {}, [
+      el("p", { "class": "eyebrow", text: "Курс · " + lessonWord(c.lessons.length) }),
+      el("h1", { text: c.name }),
+      el("p", { "class": "lead", text: c.description })
+    ]),
+    el("section", {}, [
+      el("h2", { text: "О курсе" }),
+      el("div", { "class": "card" }, [el("p", { text: c.about })])
+    ]),
+    el("section", {}, [
+      el("h2", { text: "Что получит ребёнок" }),
+      el("div", { "class": "card" }, [
+        el("ul", { "class": "points" }, c.outcomes.map(function (o) { return el("li", { text: o }); }))
+      ])
+    ]),
+    el("section", {}, [
+      el("h2", { text: "Для кого" }),
+      el("div", { "class": "card" }, [el("p", { text: c.audience })])
+    ]),
+    el("section", {}, [
+      el("h2", { text: "Записи уроков" }),
+      el("div", { "class": "card" }, [list])
+    ])
+  ]);
+}
+
+(function init() {
+  var app = document.getElementById("app");
+  views.home = buildHome();
+  app.appendChild(views.home);
+  PAGE.courses.forEach(function (c) {
+    views[c.id] = buildCourse(c);
+    app.appendChild(views[c.id]);
+  });
+  var start = "home";
+  try {
+    var h = (location.hash || "").replace("#", "");
+    if (views[h]) start = h;      // ссылка вида «сайт#python» открывает страницу курса сразу
+  } catch (e) {}
+  show(start, true);
+})();
+</script>
+</body>
+</html>
