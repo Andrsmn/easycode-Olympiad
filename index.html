@@ -54,6 +54,8 @@ button { font: inherit; color: inherit; }
 header { display: flex; flex-direction: column; gap: 12px; }
 h1 { font-size: clamp(28px, 6vw, 40px); }
 .lead { color: var(--ink-soft); font-size: 18px; max-width: 60ch; }
+div.lead { display: flex; flex-direction: column; gap: 12px; }
+.lead b { color: var(--ink); }
 section { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
 h2 { font-size: 24px; }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
@@ -95,8 +97,8 @@ footer { color: var(--ink-soft); font-size: 15px; }
    Всё, что в квадратных скобках, это заглушки: замените на настоящий текст.
    id курса (projects, gui) задаёт адрес страницы курса: ссылка на страницу курса = ссылка на сайт + #projects. */
 const PAGE = {
-  heading: "Дополнительные материалы к боту",
-  lead: "Подарок к боту: два видеокурса по Python от EasyCode. Они не входят в подготовку к олимпиаде: это дополнительный материал для тех, кто хочет познакомиться с программированием шире. Смотреть можно в любое время и в своём темпе. Курсы дают базовую часть темы: это первое знакомство, а не полное изучение.",
+  heading: "Бонус к AI-тренажёру для подготовки к олимпиаде «неПервый код» — два видеокурса по Python от EasyCode!",
+  lead: "Расширяйте свои знания в программировании и осваивайте новые направления. В дополнение к тренажёру вы получаете доступ к двум видеокурсам, которые помогут познакомиться с возможностями Python и попробовать применить полученные знания на практике.\n**26 видеоуроков** доступны в любое время — занимайтесь в удобном темпе, без ограничений по расписанию.",
   howto: [
     "Выберите курс на этой странице.",
     "На странице курса прочитайте описание и посмотрите, что входит в курс.",
@@ -184,6 +186,20 @@ function lessonWord(n) {
   return n + " уроков";
 }
 
+/* Вводный текст: «\n» делит на абзацы, текст между ** ** становится жирным */
+function richLead(text) {
+  var box = el("div", { "class": "lead" });
+  text.split("\n").forEach(function (line) {
+    var p = el("p");
+    line.split("**").forEach(function (part, i) {
+      if (!part) return;
+      p.appendChild(i % 2 ? el("b", { text: part }) : document.createTextNode(part));
+    });
+    box.appendChild(p);
+  });
+  return box;
+}
+
 var views = {};   // id экрана -> элемент; "home" это главная
 
 function show(id, fromHistory) {
@@ -210,7 +226,7 @@ function buildHome() {
     el("header", {}, [
       el("p", { "class": "eyebrow", text: "EasyCode · неПервый код" }),
       el("h1", { text: PAGE.heading }),
-      el("p", { "class": "lead", text: PAGE.lead })
+      richLead(PAGE.lead)
     ]),
     el("section", {}, [
       el("h2", { text: "Курсы" }),
