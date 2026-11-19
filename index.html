@@ -262,13 +262,13 @@ function buildHome() {
       el("h2", { text: "Курсы" }),
       el("div", { "class": "courses" }, courseButtons)
     ]),
-    buildWebinar(),
     el("section", {}, [
       el("h2", { text: "Как пользоваться" }),
       el("div", { "class": "card" }, [
         el("ol", { "class": "steps" }, PAGE.howto.map(function (s) { return el("li", { text: s }); }))
       ])
-    ])
+    ]),
+    buildWebinar()
   ]);
 }
 
