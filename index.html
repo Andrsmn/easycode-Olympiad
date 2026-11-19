@@ -81,6 +81,8 @@ ol.lessons { list-style: none; margin: 0; padding: 0; display: flex; flex-direct
 .lesson a, .lesson .soon { flex: none; font-size: 15px; font-weight: 700; }
 .lesson a { color: var(--accent); }
 .lesson .soon { color: var(--ink-soft); font-weight: 600; }
+.card h3 { font-size: 20px; }
+.card .points { font-size: 16px; gap: 6px; }
 ol.steps, ul.points { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 10px; }
 ol.steps li::marker { color: var(--accent); font-weight: 700; }
 ul.points li::marker { color: var(--accent); }
@@ -105,6 +107,19 @@ const PAGE = {
     "Нажмите «Смотреть» рядом с нужным уроком: запись откроется в новой вкладке.",
     "Чтобы вернуться к списку курсов, нажмите «← Назад»."
   ],
+  webinar: {
+    title: "Закрытый практический вебинар «Работа над ошибками»",
+    date: "25 ноября 2026",
+    url: "https://edu.livedigital.space/room/E4MM7wxJJ7",
+    button: "Перейти на вебинар",
+    text: "Даже хорошо подготовленные участники теряют баллы из-за невнимательности, неверно понятого условия или неудачного способа решения. Разберём самые частые ошибки олимпиадных заданий и научимся видеть и исправлять их самостоятельно.",
+    points: [
+      "Разбор реальных ошибок по обезличенным результатам пробной олимпиады и тренировок с AI-ботом.",
+      "Пошаговое решение сложных заданий с примерами по классам.",
+      "Ответы на вопросы.",
+      "Квиз после вебинара, чтобы закрепить материал."
+    ]
+  },
   courses: [
     {
       id: "projects",
@@ -212,6 +227,21 @@ window.addEventListener("hashchange", function () {      // кнопка «На�
   show(views[h] ? h : "home", true);
 });
 
+function buildWebinar() {
+  var w = PAGE.webinar;
+  if (!w) return null;
+  return el("section", {}, [
+    el("h2", { text: "Вебинар" }),
+    el("div", { "class": "card featured" }, [
+      el("span", { "class": "date", text: w.date }),
+      el("h3", { text: w.title }),
+      el("p", { text: w.text }),
+      el("ul", { "class": "points" }, w.points.map(function (p) { return el("li", { text: p }); })),
+      link(w.url, w.button, "btn")
+    ])
+  ]);
+}
+
 function buildHome() {
   var courseButtons = PAGE.courses.map(function (c) {
     var b = el("button", { type: "button", "class": "course" }, [
@@ -232,6 +262,7 @@ function buildHome() {
       el("h2", { text: "Курсы" }),
       el("div", { "class": "courses" }, courseButtons)
     ]),
+    buildWebinar(),
     el("section", {}, [
       el("h2", { text: "Как пользоваться" }),
       el("div", { "class": "card" }, [
