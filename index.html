@@ -5,89 +5,98 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Материалы к боту</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Rubik:wght@500;600&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap&subset=cyrillic">
 <style>
-/* Раскладка: одна колонка 720px, два «экрана» в одном файле.
-   Главная: шапка, две крупные кнопки курсов, мини-инструкция.
-   Страница курса: кнопка «Назад», название, описание, список уроков. */
+/* Оформление в тонах сайта олимпиады: тёмно-индиго шапка, сиреневая область с большими скруглениями,
+   белые и тёмные карточки, кнопки-«таблетки». Две части на каждом экране: .hero (шапка) и .sheet (сиреневая область). */
 :root {
-  --bg: #F3F5FA;
-  --surface: #FFFFFF;
-  --surface-2: #E9EDF7;
-  --ink: #15203B;
-  --ink-soft: #4A5572;
-  --line: #D9DFEE;
-  --accent: #2F4FD0;
-  --accent-ink: #FFFFFF;
-  --mark: #F58A3C;
-  --mark-ink: #15203B;
-  --font-display: 'Rubik', 'Segoe UI', Arial, sans-serif;
-  --font-body: 'Nunito Sans', 'Segoe UI', Arial, sans-serif;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0F1730; --surface: #18223F; --surface-2: #212D50; --ink: #EDF0F8; --ink-soft: #B3BCD6;
-    --line: #2C3960; --accent: #8EA2FF; --accent-ink: #0F1730; --mark: #F58A3C; --mark-ink: #15203B;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0F1730; --surface: #18223F; --surface-2: #212D50; --ink: #EDF0F8; --ink-soft: #B3BCD6;
-  --line: #2C3960; --accent: #8EA2FF; --accent-ink: #0F1730; --mark: #F58A3C; --mark-ink: #15203B;
-  color-scheme: dark;
+  --indigo: #2D2566; --indigo-deep: #231D55; --lav: #CFCCFF; --lav-2: #E7E4FB;
+  --violet: #7B61E5; --violet-dark: #6249D0; --orange: #F58A3C;
+  --ink: #2A2358; --ink-soft: #5A557F; --white: #FFFFFF;
+  --font: 'Montserrat', 'Segoe UI', Arial, sans-serif;
 }
 * { box-sizing: border-box; }
-[hidden] { display: none !important; }   /* без этого экран с display:flex не скрывался бы атрибутом hidden */
-body {
-  background: var(--bg); color: var(--ink);
-  font-family: var(--font-body); font-size: 17px; line-height: 1.55;
-  padding-block: 40px 56px;
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
-}
-main { max-width: 720px; margin: 0 auto; }
-.view { display: flex; flex-direction: column; gap: 32px; }
-h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.2; margin: 0; text-wrap: balance; }
-p { margin: 0; }
+[hidden] { display: none !important; }
+html { color-scheme: light; }
+body { margin: 0; background: var(--indigo); color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.6; }
+h1, h2, h3, p, ul, ol { margin: 0; }
 button { font: inherit; color: inherit; }
-.eyebrow { font-size: 14px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
-header { display: flex; flex-direction: column; gap: 12px; }
-h1 { font-size: clamp(28px, 6vw, 40px); }
-.lead { color: var(--ink-soft); font-size: 18px; max-width: 60ch; }
-div.lead { display: flex; flex-direction: column; gap: 12px; }
-.lead b { color: var(--ink); }
-section { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
-h2 { font-size: 24px; }
-.card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
-.card.featured { border-color: var(--accent); }
-.date { align-self: flex-start; background: var(--mark); color: var(--mark-ink); font-size: 15px; font-weight: 700; padding: 4px 12px; border-radius: 999px; }
-.meta { color: var(--ink-soft); font-size: 15px; }
-.btn { display: inline-flex; align-items: center; justify-content: center; align-self: flex-start; min-height: 46px; padding: 10px 22px; border: 0; border-radius: 12px; font-weight: 700; font-size: 16px; text-decoration: none; background: var(--accent); color: var(--accent-ink); cursor: pointer; }
-.btn:hover { filter: brightness(1.08); }
-.btn.off { background: var(--surface-2); color: var(--ink-soft); cursor: default; }
-.courses { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.course { display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 18px; min-height: 150px; text-align: left; background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 16px; padding: 22px; cursor: pointer; min-width: 0; }
-.course:hover { filter: brightness(1.08); }
-.course .name { font-family: var(--font-display); font-weight: 600; font-size: 24px; line-height: 1.2; overflow-wrap: anywhere; }
-.course .count { font-size: 15px; font-weight: 600; opacity: .9; }
-.course .go { font-size: 15px; font-weight: 700; }
-.back { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 16px 8px 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; font-weight: 700; font-size: 16px; cursor: pointer; }
-.back:hover { border-color: var(--accent); }
-button:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.view { min-height: 100vh; display: flex; flex-direction: column; }
+.wrap { width: 100%; max-width: 1040px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+
+/* шапка */
+.hero { position: relative; overflow: hidden; color: var(--white); padding: 44px 0 104px; }
+.hero::before { content: ""; position: absolute; right: -140px; top: -190px; width: 560px; height: 560px; border-radius: 50%; border: 80px solid rgba(207, 204, 255, .22); pointer-events: none; }
+.hero::after { content: ""; position: absolute; left: -90px; bottom: -150px; width: 300px; height: 300px; border-radius: 50%; border: 44px solid rgba(207, 204, 255, .12); pointer-events: none; }
+.hero .wrap { position: relative; z-index: 1; display: grid; gap: 28px; align-items: center; }
+.hero .wrap.with-img { grid-template-columns: 1.4fr .8fr; }
+.hero-text { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; min-width: 0; }
+.hero-img { width: 100%; max-height: 380px; object-fit: contain; justify-self: center; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { display: inline-block; background: var(--lav-2); color: var(--ink); font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 999px; }
+.chip.hot { background: var(--orange); color: #2A1A0B; }
+.hero h1 { font-size: clamp(26px, 5.2vw, 46px); font-weight: 800; line-height: 1.12; letter-spacing: -.02em; text-wrap: balance; }
+.hero .lead { max-width: 62ch; color: rgba(255,255,255,.84); display: flex; flex-direction: column; gap: 10px; font-size: 17px; }
+.hero .lead b { color: var(--white); }
+
+/* кнопки */
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 14px 32px; border: 0; border-radius: 999px; font-weight: 700; font-size: 16px; text-decoration: none; cursor: pointer; background: var(--violet); color: var(--white); }
+.btn:hover { background: var(--violet-dark); }
+.btn.light { background: var(--white); color: var(--violet-dark); }
+.btn.light:hover { background: var(--lav-2); }
+.btn.small { min-height: 40px; padding: 8px 20px; font-size: 14px; }
+.btn.off { background: var(--lav-2); color: var(--ink-soft); cursor: default; }
+.back { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 20px 8px 16px; background: rgba(255,255,255,.12); color: var(--white); border: 1px solid rgba(255,255,255,.35); border-radius: 999px; font-weight: 700; font-size: 15px; cursor: pointer; }
+.back:hover { background: rgba(255,255,255,.22); }
+button:focus-visible, a:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+
+/* сиреневая область */
+.sheet { position: relative; flex: 1; margin-top: -56px; background: var(--lav); border-radius: 40px 40px 0 0; padding: 56px 0 72px; }
+.sheet .wrap { display: flex; flex-direction: column; gap: 48px; }
+section { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+h2 { font-size: clamp(26px, 4.4vw, 38px); font-weight: 800; letter-spacing: -.02em; line-height: 1.15; color: var(--indigo); }
+.card { background: var(--white); border-radius: 28px; padding: 28px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.card.dark { background: var(--indigo); color: var(--white); }
+.card h3 { font-size: 22px; font-weight: 800; line-height: 1.25; letter-spacing: -.01em; }
+.card p { color: var(--ink-soft); }
+.card.dark p { color: rgba(255,255,255,.84); }
+
+/* курсы */
+.courses { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.course { display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 22px; min-height: 230px; text-align: left; background: var(--indigo); color: var(--white); border: 0; border-radius: 28px; padding: 28px; cursor: pointer; min-width: 0; }
+.course:hover { background: var(--indigo-deep); }
+.course .tab { background: var(--lav); color: var(--ink); font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 999px; }
+.course .name { font-weight: 800; font-size: 22px; line-height: 1.2; text-transform: uppercase; letter-spacing: -.01em; overflow-wrap: anywhere; }
+.course .go { display: inline-block; background: var(--white); color: var(--violet-dark); font-size: 15px; font-weight: 700; padding: 10px 22px; border-radius: 999px; }
+
+/* шаги и списки */
+ol.steps { list-style: none; counter-reset: s; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+ol.steps li { counter-increment: s; display: flex; gap: 16px; align-items: flex-start; }
+ol.steps li::before { content: counter(s); flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--violet); color: var(--white); font-weight: 800; display: grid; place-items: center; }
+ul.points { padding-left: 22px; display: flex; flex-direction: column; gap: 8px; }
+ul.points li::marker { color: var(--violet); }
+.card.dark ul.points li::marker { color: var(--lav); }
+
+/* вебинар */
+.webinar .date { align-self: flex-start; background: var(--orange); color: #2A1A0B; font-size: 14px; font-weight: 800; padding: 6px 16px; border-radius: 999px; }
+.webinar .btn { align-self: flex-start; }
+
+/* уроки */
 ol.lessons { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
-.lesson { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; border-top: 1px solid var(--line); }
+.lesson { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 14px 0; border-top: 1px solid var(--lav-2); }
 .lesson:first-child { border-top: 0; }
-.lesson span.t { min-width: 0; overflow-wrap: anywhere; }
-.lesson a, .lesson .soon { flex: none; font-size: 15px; font-weight: 700; }
-.lesson a { color: var(--accent); }
-.lesson .soon { color: var(--ink-soft); font-weight: 600; }
-.card h3 { font-size: 20px; }
-.card .points { font-size: 16px; gap: 6px; }
-ol.steps, ul.points { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 10px; }
-ol.steps li::marker { color: var(--accent); font-weight: 700; }
-ul.points li::marker { color: var(--accent); }
-footer { color: var(--ink-soft); font-size: 15px; }
-@media (max-width: 520px) { .courses { grid-template-columns: 1fr; } .card { padding: 18px; } .course { min-height: 0; } }
+.lesson .t { min-width: 0; overflow-wrap: anywhere; font-weight: 600; color: var(--ink); }
+.lesson .btn { flex: none; }
+
+@media (max-width: 760px) {
+  .hero { padding: 28px 0 88px; }
+  .hero .wrap.with-img { grid-template-columns: 1fr; }
+  .sheet { border-radius: 28px 28px 0 0; padding-top: 40px; }
+  .courses { grid-template-columns: 1fr; }
+  .course { min-height: 0; }
+  .card { padding: 22px; border-radius: 24px; }
+}
 </style>
 </head>
 <body>
@@ -99,6 +108,7 @@ footer { color: var(--ink-soft); font-size: 15px; }
    Всё, что в квадратных скобках, это заглушки: замените на настоящий текст.
    id курса (projects, gui) задаёт адрес страницы курса: ссылка на страницу курса = ссылка на сайт + #projects. */
 const PAGE = {
+  heroImage: "",   // адрес картинки для шапки (например, маскот); пусто = без картинки
   heading: "Бонус к AI-тренажёру для подготовки к олимпиаде «неПервый код» — два видеокурса по Python от EasyCode!",
   lead: "Расширяйте свои знания в программировании и осваивайте новые направления. В дополнение к тренажёру вы получаете доступ к двум видеокурсам, которые помогут познакомиться с возможностями Python и попробовать применить полученные знания на практике.\n**26 видеоуроков** доступны в любое время — занимайтесь в удобном темпе, без ограничений по расписанию.",
   howto: [
@@ -191,8 +201,8 @@ function el(tag, attrs, children) {
   return node;
 }
 function link(url, label, cls) {
-  if (url) return el("a", { href: url, target: "_blank", rel: "noopener", "class": cls || "", text: label });
-  return el("span", { "class": (cls ? cls + " off" : "soon"), text: "Скоро" });
+  if (url) return el("a", { href: url, target: "_blank", rel: "noopener", "class": cls || "btn", text: label });
+  return el("span", { "class": (cls || "btn") + " off", text: "Скоро" });
 }
 function lessonWord(n) {
   var m10 = n % 10, m100 = n % 100;
@@ -200,10 +210,16 @@ function lessonWord(n) {
   if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return n + " урока";
   return n + " уроков";
 }
+function videoWord(n) {
+  var m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return n + " видеоурок";
+  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return n + " видеоурока";
+  return n + " видеоуроков";
+}
 
 /* Вводный текст: «\n» делит на абзацы, текст между ** ** становится жирным */
-function richLead(text) {
-  var box = el("div", { "class": "lead" });
+function richLead(text, cls) {
+  var box = el("div", { "class": cls || "lead" });
   text.split("\n").forEach(function (line) {
     var p = el("p");
     line.split("**").forEach(function (part, i) {
@@ -227,48 +243,71 @@ window.addEventListener("hashchange", function () {      // кнопка «На�
   show(views[h] ? h : "home", true);
 });
 
+/* шапка: плашки, заголовок, вводный текст, необязательные кнопка и картинка */
+function hero(o) {
+  var textBlock = [];
+  if (o.back) textBlock.push(o.back);
+  textBlock.push(el("div", { "class": "chips" }, o.chips.map(function (c, i) {
+    return el("span", { "class": "chip" + (i === 0 ? " hot" : ""), text: c });
+  })));
+  textBlock.push(el("h1", { text: o.title }));
+  textBlock.push(o.lead);
+  if (o.cta) textBlock.push(o.cta);
+  var kids = [el("div", { "class": "hero-text" }, textBlock)];
+  if (o.image) kids.push(el("img", { "class": "hero-img", src: o.image, alt: "" }));
+  return el("div", { "class": "hero" }, [el("div", { "class": "wrap" + (o.image ? " with-img" : "") }, kids)]);
+}
+function sheet(sections) {
+  return el("div", { "class": "sheet" }, [el("div", { "class": "wrap" }, sections)]);
+}
+
 function buildWebinar() {
   var w = PAGE.webinar;
   if (!w) return null;
   return el("section", {}, [
     el("h2", { text: "Вебинар" }),
-    el("div", { "class": "card featured" }, [
+    el("div", { "class": "card dark webinar" }, [
       el("span", { "class": "date", text: w.date }),
       el("h3", { text: w.title }),
       el("p", { text: w.text }),
       el("ul", { "class": "points" }, w.points.map(function (p) { return el("li", { text: p }); })),
-      link(w.url, w.button, "btn")
+      link(w.url, w.button, "btn light")
     ])
   ]);
 }
 
 function buildHome() {
+  var total = PAGE.courses.reduce(function (n, c) { return n + c.lessons.length; }, 0);
   var courseButtons = PAGE.courses.map(function (c) {
     var b = el("button", { type: "button", "class": "course" }, [
+      el("span", { "class": "tab", text: lessonWord(c.lessons.length) }),
       el("span", { "class": "name", text: c.name }),
-      el("span", { "class": "count", text: lessonWord(c.lessons.length) }),
       el("span", { "class": "go", text: "Открыть курс →" })
     ]);
     b.addEventListener("click", function () { show(c.id); });
     return b;
   });
+  var coursesSection = el("section", { id: "courses" }, [
+    el("h2", { text: "Курсы" }),
+    el("div", { "class": "courses" }, courseButtons)
+  ]);
+  var cta = el("button", { type: "button", "class": "btn light", text: "Смотреть курсы" });
+  cta.addEventListener("click", function () { coursesSection.scrollIntoView({ behavior: "smooth", block: "start" }); });
   return el("div", { "class": "view" }, [
-    el("header", {}, [
-      el("p", { "class": "eyebrow", text: "EasyCode · неПервый код" }),
-      el("h1", { text: PAGE.heading }),
-      richLead(PAGE.lead)
-    ]),
-    el("section", {}, [
-      el("h2", { text: "Курсы" }),
-      el("div", { "class": "courses" }, courseButtons)
-    ]),
-    el("section", {}, [
-      el("h2", { text: "Как пользоваться" }),
-      el("div", { "class": "card" }, [
-        el("ol", { "class": "steps" }, PAGE.howto.map(function (s) { return el("li", { text: s }); }))
-      ])
-    ]),
-    buildWebinar()
+    hero({
+      chips: ["Бонус к боту", videoWord(total), "доступ в любое время"],
+      title: PAGE.heading, lead: richLead(PAGE.lead), cta: cta, image: PAGE.heroImage
+    }),
+    sheet([
+      coursesSection,
+      el("section", {}, [
+        el("h2", { text: "Как пользоваться" }),
+        el("div", { "class": "card" }, [
+          el("ol", { "class": "steps" }, PAGE.howto.map(function (s) { return el("li", { text: s }); }))
+        ])
+      ]),
+      buildWebinar()
+    ])
   ]);
 }
 
@@ -280,33 +319,22 @@ function buildCourse(c) {
   var list = el("ol", { "class": "lessons" }, c.lessons.map(function (l) {
     return el("li", { "class": "lesson" }, [
       el("span", { "class": "t", text: l.title }),
-      link(l.url, "Смотреть")
+      link(l.url, "Смотреть", "btn small")
     ]);
   }));
   return el("div", { "class": "view" }, [
-    back,
-    el("header", {}, [
-      el("p", { "class": "eyebrow", text: "Курс · " + lessonWord(c.lessons.length) }),
-      el("h1", { text: c.name }),
-      el("p", { "class": "lead", text: c.description })
-    ]),
-    el("section", {}, [
-      el("h2", { text: "О курсе" }),
-      el("div", { "class": "card" }, [el("p", { text: c.about })])
-    ]),
-    el("section", {}, [
-      el("h2", { text: "Что получит ребёнок" }),
-      el("div", { "class": "card" }, [
-        el("ul", { "class": "points" }, c.outcomes.map(function (o) { return el("li", { text: o }); }))
-      ])
-    ]),
-    el("section", {}, [
-      el("h2", { text: "Для кого" }),
-      el("div", { "class": "card" }, [el("p", { text: c.audience })])
-    ]),
-    el("section", {}, [
-      el("h2", { text: "Записи уроков" }),
-      el("div", { "class": "card" }, [list])
+    hero({
+      back: back, chips: ["Курс", lessonWord(c.lessons.length)], title: c.name,
+      lead: el("div", { "class": "lead" }, [el("p", { text: c.description })])
+    }),
+    sheet([
+      el("section", {}, [el("h2", { text: "О курсе" }), el("div", { "class": "card" }, [el("p", { text: c.about })])]),
+      el("section", {}, [
+        el("h2", { text: "Что получит ребёнок" }),
+        el("div", { "class": "card" }, [el("ul", { "class": "points" }, c.outcomes.map(function (o) { return el("li", { text: o }); }))])
+      ]),
+      el("section", {}, [el("h2", { text: "Для кого" }), el("div", { "class": "card" }, [el("p", { text: c.audience })])]),
+      el("section", {}, [el("h2", { text: "Записи уроков" }), el("div", { "class": "card" }, [list])])
     ])
   ]);
 }
@@ -322,7 +350,7 @@ function buildCourse(c) {
   var start = "home";
   try {
     var h = (location.hash || "").replace("#", "");
-    if (views[h]) start = h;      // ссылка вида «сайт#python» открывает страницу курса сразу
+    if (views[h]) start = h;      // ссылка вида «сайт#projects» открывает страницу курса сразу
   } catch (e) {}
   show(start, true);
 })();
